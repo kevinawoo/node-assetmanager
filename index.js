@@ -81,6 +81,13 @@ exports.init = function(options) {
         });
         if (options.webroot) {
             // Strip the webroot foldername from the filepath
+            if (typeof options.webroot === 'string') {
+                options.webroot = {
+                    replace: options.webroot,
+                    with: ''
+                }
+            }
+
             var regex = new RegExp('^' + options.webroot.replace);
             _.each(assets[fileType], function(value, key) {
                 assets[fileType][key] = value.replace(regex, options.webroot.with);
